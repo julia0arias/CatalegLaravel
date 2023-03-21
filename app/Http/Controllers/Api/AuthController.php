@@ -26,11 +26,11 @@ final class AuthController extends Controller
          if(Auth::attempt($credentials)){
             $user = User::where('name', request()->name)->first();
 
-            $request->session()->put('esAdmin', $user->is_admin === 'S' ? true : false);
+            $request->session()->put('isAdmin', $user->is_admin === 'S' ? true : false);
             $request->session()->put('logged', true);
             $request->session()->put('user', $user);
 
-          //  $user->createToken('esAdmin', $user->is_admin === 'S' ? true : false);
+          //  $user->createToken('isAdmin', $user->is_admin === 'S' ? true : false);
           //  $user->createToken('logged', true);
           //  $request->session()->put('token', $user->getTokens());
 
@@ -42,7 +42,7 @@ final class AuthController extends Controller
 
     final public function logout()
     {
-        session()->forget('esAdmin');
+        session()->forget('isAdmin');
         session()->forget('logged');
         session()->forget('user');
         session()->flush();

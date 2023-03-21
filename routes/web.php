@@ -4,8 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\productosController;
 use App\Http\Controllers\categoriasController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\usersController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UsuariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +67,8 @@ Route::post('/anadirProducto', [productosController::class, 'accion']);
 
 //Logins
 
+Route::get('/usuarios', [UsuariosController::class, 'show']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/userRegister', [AuthController::class, 'register'])->name('userRegister');
-/*Route::get('/register', [usersController::class, 'form']);
-Route::post('/login', [usersController::class, 'login']);*/
+Route::get('/eliminarUsuario/{id}', [UsuariosController::class, 'delete']);
+Route::get('/modificarUsuario/{id}', [UsuariosController::class, 'subirDatos']);
