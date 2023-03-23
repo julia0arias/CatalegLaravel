@@ -45,12 +45,15 @@
           @endif
 
         </ul>
-        @if (session('logged') != null && session('user')->isAdmin == false)
-        <a class="cesta"><i class="fa-solid fa-cart-shopping"></i></a>
+      <div class="d-flex usuario">
+        @if (session('logged') != null && session('isAdmin') == false)
+        <a class="carrito"><i class="fa-solid fa-cart-shopping"></i></a>
         @endif
+
         @if (session('logged') != null)
         <p class="userName">Bienvenido {{ session('user')->name }} !</p>
         @endif
+    </div>
       </div>
     </div>
   </nav>

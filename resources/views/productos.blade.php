@@ -75,9 +75,14 @@
                                 <p class="card-text">Categoria: {{ $categoria->nombre }}</p>
                             @endif
                         @endforeach
+                        @if (session('isAdmin') != null && session('isAdmin'))
                         <a href="/modificar/{{ $prod->id }}"><i class="me-2  fa-solid fa-pen-to-square"></i></a>
                         <a href="{{ url('/eliminar') }}/{{ $prod->id }}"><i
                                 class="me-2 fa-solid fa-trash"></i></a>
+                        @endif
+                        @if (session('logged') != null && session('isAdmin') == false)
+                            <a><i class="fa-solid fa-basket-shopping"></i></a>
+                        @endif
                     </div>
                 </div>
             @endforeach

@@ -357,3 +357,15 @@ i:hover {
   .fieldLogin button:hover {
     background-color: #5f5f9c;
   }
+
+  .carrito i{
+    margin-right: 2rem;
+    font-size: 1.5rem;
+    color: white !important;
+  }
+
+  .usuario{
+    margin-right: 4rem;
+    border-radius: 50px;
+    background-color: rgb(255 255 255 / 28%);
+  }
