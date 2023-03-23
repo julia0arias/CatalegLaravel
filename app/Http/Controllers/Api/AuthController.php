@@ -19,12 +19,12 @@ final class AuthController extends Controller
     final public function login(Request $request)
     {
         request()->validate([
-            'name' => 'required|string',
+            'email' => 'required|string',
             'password' => 'required',
         ]);
-         $credentials = $request->only('name', 'password');
+         $credentials = $request->only('email', 'password');
          if(Auth::attempt($credentials)){
-            $user = User::where('name', request()->name)->first();
+            $user = User::where('email', request()->email)->first();
 
             $request->session()->put('isAdmin', $user->is_admin === 'S' ? true : false);
             $request->session()->put('logged', true);

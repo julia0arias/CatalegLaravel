@@ -180,7 +180,7 @@ i:hover {
     color: white !important;
 }
 
-.modal {
+/*.modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -191,7 +191,7 @@ i:hover {
     position: absolute;
     top: 0;
     left: 0;
-}
+}*/
 
 .contenedorForm {
     margin-bottom: 3.5%;
@@ -280,13 +280,15 @@ i:hover {
 /*Loguin*/
 
 .cardLogin {
-    width: 190px;
+    width: 330px;
     background: #F4F6FB;
     border: 1px solid white;
-    box-shadow: 10px 10px 64px 0px rgba(180, 180, 207, 0.75);
-    -webkit-box-shadow: 10px 10px 64px 0px rgba(186, 186, 202, 0.75);
-    -moz-box-shadow: 10px 10px 64px 0px rgba(208, 208, 231, 0.75);
     border-radius: 10px;
+  }
+
+  .modal-dialog{
+    display: flex;
+    justify-content: center;
   }
 
   .formLogin {

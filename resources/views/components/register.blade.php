@@ -1,7 +1,7 @@
-<div class="modal fade " id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content d-flex align-items-center bg-transparent border-0">
-            <form class="formLogin cardLogin" method="POST" action="{{ route('login') }}">
+            <form class="formLogin cardLogin" method="POST" action="{{ route('userRegister') }}">
                 @csrf
                 <div class="card_headerLogin d-flex justify-content-between">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -10,10 +10,15 @@
                             d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z">
                         </path>
                     </svg>
-                    <h1 class="form_headingLogin modal-title" id="loginModalLabel">Iniciar sesión</h1>
+                    <h1 class="form_headingLogin modal-title" id="loginModalLabel">Registrarse</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="fieldLogin">
+                        <label for="username">Username</label>
+                        <input class="inputLogin form-control" name="name" type="text" placeholder="Username"
+                            id="username">
+                    </div>
                     <div class="fieldLogin">
                         <label for="email">E-mail</label>
                         <input class="inputLogin form-control" name="email" type="text" placeholder="E-mail"
@@ -27,7 +32,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="fieldLogin">
-                        <button type="submit" class="btn btn-primary">Log in</button>
+                        <button type="submit" class="button btn btn-primary">Registrarse</button>
                     </div>
                 </div>
             </form>

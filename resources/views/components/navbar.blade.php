@@ -28,15 +28,15 @@
           <li class="nav-item">
             <a class="nav-link menu" href="{{ url('/contacto') }}">Contacto</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link menu" href="{{ url('/register') }}">Registrarse</a>
-          </li>
           @if (session('logged') == null)
           <li class="nav-item">
-            <a class="nav-link menu" href="{{ url('/login') }}" data-toggle="modal" data-target="#loginModal">Log in</a>
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button> -->
+            <li class="nav-item">
+                <a class="nav-link menu" href="#loginModal" data-bs-toggle="modal" data-bd-target="#loginModal">Iniciar Sesión</a>
+                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button> -->
+              </li>
+          <!--  <a class="nav-link menu" href="{{ url('/register') }}">Registrarse</a> -->
+          <a class="nav-link menu" href="#registerModal" data-bs-toggle="modal" data-bd-target="#registerModal">Registrarse</a>
           </li>
-
           @else
 
           <li class="nav-item">
@@ -45,10 +45,14 @@
           @endif
 
         </ul>
+        @if (session('logged') != null && session('user')->isAdmin == false)
+        <a class="cesta"><i class="fa-solid fa-cart-shopping"></i></a>
+        @endif
         @if (session('logged') != null)
-        <p></p>
         <p class="userName">Bienvenido {{ session('user')->name }} !</p>
         @endif
       </div>
     </div>
   </nav>
+@include('components.loginModal')
+@include('components.register')
