@@ -1,4 +1,4 @@
-@props(['logged' => null, 'user' => null])
+@props(['logged' => null, 'user' => null, 'cart' => null, 'totalProductos' => null])
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -32,10 +32,8 @@
           <li class="nav-item">
             <li class="nav-item">
                 <a class="nav-link menu" href="#loginModal" data-bs-toggle="modal" data-bd-target="#loginModal">Iniciar Sesión</a>
-                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button> -->
               </li>
-          <!--  <a class="nav-link menu" href="{{ url('/register') }}">Registrarse</a> -->
-          <a class="nav-link menu" href="#registerModal" data-bs-toggle="modal" data-bd-target="#registerModal">Registrarse</a>
+          <a class="nav-link menu registrate" href="#registerModal" data-bs-toggle="modal" data-bd-target="#registerModal">Regístrate!</a>
           </li>
           @else
 
@@ -47,7 +45,9 @@
         </ul>
       <div class="d-flex usuario">
         @if (session('logged') != null && session('isAdmin') == false)
-        <a class="carrito"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a class="carrito" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="fa-solid fa-cart-shopping"></i>
+            <span class='badge badge-warning' id='lblCartCount'> {{ session('totalProductos') }} </span>
+        </a>
         @endif
 
         @if (session('logged') != null)
@@ -57,5 +57,7 @@
       </div>
     </div>
   </nav>
+
 @include('components.loginModal')
 @include('components.register')
+@include('components.modalCarrito')

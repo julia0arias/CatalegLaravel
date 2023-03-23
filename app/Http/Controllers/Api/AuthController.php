@@ -37,7 +37,7 @@ final class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->intended();
          }
-         return redirect()->intended('login')->withSuccess('Oppes! You have entered invalid credentials');
+         return redirect()->intended()->withSuccess('Oppes! You have entered invalid credentials');
     }
 
     final public function logout()
@@ -46,7 +46,7 @@ final class AuthController extends Controller
         session()->forget('logged');
         session()->forget('user');
         session()->flush();
-        return redirect()->intended('/');
+        return redirect()->intended();
     }
 
     final public function register(Request $request){
@@ -64,9 +64,10 @@ final class AuthController extends Controller
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'is_admin' => 'N'
             ]);
-            return redirect()->intended('/login');
+              return redirect()->intended();
         }
     }
 }

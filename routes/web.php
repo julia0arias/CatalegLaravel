@@ -5,6 +5,7 @@ use App\Http\Controllers\productosController;
 use App\Http\Controllers\categoriasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,14 +28,6 @@ Route::get('/productos', function () {
 
 Route::get('/contacto', function () {
     return view('contacto');
-});
-
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/login', function () {
-    return view('login');
 });
 
 Route::get('/logout', [AuthController::class, 'logout']);
@@ -69,6 +62,13 @@ Route::post('/anadirProducto', [productosController::class, 'accion']);
 
 Route::get('/usuarios', [UsuariosController::class, 'show']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/userRegister', [AuthController::class, 'register'])->name('userRegister');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/eliminarUsuario/{id}', [UsuariosController::class, 'delete']);
 Route::get('/modificarUsuario/{id}', [UsuariosController::class, 'subirDatos']);
+
+
+//Cesta compra
+
+Route::get('/modal', [CartController::class, 'showModal'])->name('cart.modal');
+Route::post('/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');

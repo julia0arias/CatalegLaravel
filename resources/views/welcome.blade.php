@@ -21,7 +21,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     </head>
     <body>
 
-        <x-navbar :logged="session('logged')" :user="session('user')" />
+        <x-navbar :logged="session('logged')" :user="session('user')" :cart="session('cart', [])" :totalProductos="session('totalProductos')" />
 
           <div class="contenedorMainHome">
             <div class="imagenMain"></div>

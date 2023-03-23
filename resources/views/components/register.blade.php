@@ -1,7 +1,7 @@
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content d-flex align-items-center bg-transparent border-0">
-            <form class="formLogin cardLogin" method="POST" action="{{ route('userRegister') }}">
+            <form class="formLogin cardLogin" method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="card_headerLogin d-flex justify-content-between">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">

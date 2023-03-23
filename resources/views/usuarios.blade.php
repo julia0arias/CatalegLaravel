@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{URL::asset('css/app.css')}}">
 </head>
 <body>
-    <x-navbar :logged="session('logged')" :user="session('user')" />
+    <x-navbar :logged="session('logged')" :user="session('user')" :cart="session('cart', [])" :totalProductos="session('totalProductos')" />
 
     <div class="contenedorMain">
         <div class="container d-flex justify-content-center gap-4 align-items-end">

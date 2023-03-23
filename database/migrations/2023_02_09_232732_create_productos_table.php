@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->text('descripcion');
             $table->string('imagen');
+            $table->double('precio');
             $table->unsignedBigInteger('categoria_id');//le pongo este tipo porque es el mismo que el id de category
             $table->foreign('categoria_id')->references('id')->on('categorias');//indico que category id, hace referencia al campo id de la tabla categories
             $table->timestamps();

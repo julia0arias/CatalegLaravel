@@ -13,7 +13,8 @@
 </head>
 
 <body>
-    <x-navbar :logged="session('logged')" :user="session('user')" />
+
+    <x-navbar :logged="session('logged')" :user="session('user')" :cart="session('cart', [])" :totalProductos="session('totalProductos')" />
 
     <div class="contenedorMain">
         <div class="container">
@@ -30,6 +31,11 @@
                         <label class="col-form-label col-form-label-sm mt-4" for="descripcion">Descripcion:</label>
                         <input class="form-control form-control-sm" name="descripcion" type="text" id="descripcion"
                             {{ isset($p) ? 'value=' . $p->descripcion . '' : '' }}>
+                    </div>
+                    <div class="form-group col-2">
+                        <label class="col-form-label col-form-label-sm mt-4" for="descripcion">Precio:</label>
+                        <input class="form-control form-control-sm" name="precio" type="number" step="0.01" id="precio"
+                            {{ isset($p) ? 'value=' . $p->precio . '' : '' }}>
                     </div>
                     <div class="form-group col-2 ">
                         <label for="categoria_id" class="col-form-label col-form-label-sm mt-4">Categoria:</label>
@@ -70,51 +76,63 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Nombre: {{ $prod->nombre }}</h5>
                         <p class="card-text">Descripcion: {{ $prod->descripcion }}</p>
+                        <p class="card-text">Precio: {{ $prod->precio }}</p>
                         @foreach ($categorias as $categoria)
                             @if ($prod->categoria_id == $categoria->id)
                                 <p class="card-text">Categoria: {{ $categoria->nombre }}</p>
                             @endif
                         @endforeach
                         @if (session('isAdmin') != null && session('isAdmin'))
-                        <a href="/modificar/{{ $prod->id }}"><i class="me-2  fa-solid fa-pen-to-square"></i></a>
-                        <a href="{{ url('/eliminar') }}/{{ $prod->id }}"><i
-                                class="me-2 fa-solid fa-trash"></i></a>
+                            <a href="/modificar/{{ $prod->id }}"><i
+                                    class="me-2  fa-solid fa-pen-to-square"></i></a>
+                            <a href="{{ url('/eliminar') }}/{{ $prod->id }}"><i
+                                    class="me-2 fa-solid fa-trash"></i></a>
                         @endif
-                        @if (session('logged') != null && session('isAdmin') == false)
-                            <a><i class="fa-solid fa-basket-shopping"></i></a>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        </div>
+                      <div class="anadirCarrito">
+    @if (session('logged') != null && session('isAdmin') == false)
+        <form method="POST" action="{{ route('cart.add') }}">
+            @csrf
+            <input type="hidden" name="id" value="{{ $prod->id }}">
+            <button class="anadirCarrito-btn" title="Añadir al carrito">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span class='badgePlus' id='lblCartCount'> + </span>
+            </button>
+        </form>
+    @endif
+</div>
 
-        <div class="container">
-            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                <div class="col-md-4 d-flex align-items-center">
-                    <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                        <svg class="bi" width="30" height="24">
-                            <use xlink:href="#bootstrap"></use>
-                        </svg>
-                    </a>
-                    <span class="text-muted">© 2021 Company, Inc</span>
                 </div>
-
-                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24"
-                                height="24">
-                                <use xlink:href="#twitter"></use>
-                            </svg></a></li>
-                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24"
-                                height="24">
-                                <use xlink:href="#instagram"></use>
-                            </svg></a></li>
-                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24"
-                                height="24">
-                                <use xlink:href="#facebook"></use>
-                            </svg></a></li>
-                </ul>
-            </footer>
         </div>
+        @endforeach
+    </div>
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+                <span class="text-muted">© 2021 Company, Inc</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24"
+                            height="24">
+                            <use xlink:href="#twitter"></use>
+                        </svg></a></li>
+                <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24"
+                            height="24">
+                            <use xlink:href="#instagram"></use>
+                        </svg></a></li>
+                <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24"
+                            height="24">
+                            <use xlink:href="#facebook"></use>
+                        </svg></a></li>
+            </ul>
+        </footer>
+    </div>
     </div>
 </body>
 

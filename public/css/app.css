@@ -1,5 +1,7 @@
 body {
     color: #ffeeca;
+    padding: 0;
+    margin: 0;
     background: radial-gradient(100% 225% at 0% 0%, #de3e3e 0%, #17115c 100%),
         radial-gradient(100% 225% at 100% 0%, #ff9040 0%, #ff0000 100%),
         linear-gradient(180deg, #ce63b7 0%, #ed6283 100%),
@@ -77,6 +79,10 @@ i:hover {
 
 .navbar-collapse {
     margin-top: 2%;
+}
+
+.navbar-nav{
+    align-items: center;
 }
 /*#003E5F
 #007082
@@ -209,7 +215,6 @@ i:hover {
 }
 
 .card {
-    height: 27em !important;
     cursor: pointer;
 }
 
@@ -358,14 +363,66 @@ i:hover {
     background-color: #5f5f9c;
   }
 
-  .carrito i{
-    margin-right: 2rem;
-    font-size: 1.5rem;
-    color: white !important;
-  }
 
   .usuario{
     margin-right: 4rem;
     border-radius: 50px;
-    background-color: rgb(255 255 255 / 28%);
   }
+
+  .userName{
+    border-bottom: 1px solid white;
+  }
+
+  .carrito {
+    position: relative;
+    margin-right: 2rem;
+    cursor: pointer;
+  }
+
+  .carrito i {
+    font-size: 1.5rem;
+    color: white !important;
+    border-bottom: 0;
+  }
+
+  .badge {
+    padding-left: 8px;
+    padding-right: 8px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+    position: absolute;
+    top: -3px;
+    right: -4px;
+    transform: translate(50%, -50%);
+    background-color: red;
+  }
+
+  .anadirCarrito i {
+    font-size: 1.5rem;
+    border-bottom: 0;
+  }
+
+  .anadirCarrito {
+    position: relative;
+    margin-right: 2rem;
+    cursor: grab;
+  }
+
+  .badgePlus {
+    position: absolute;
+    top: -20px;
+    right: -12px;
+    color: rgb(59, 167, 255);
+    font-size: 1.5rem;
+    padding: -0.7rem;
+    font-weight: bolder;
+
+}
+
+.registrate{
+    border: 2px solid white;
+    margin-left: 6px;
+}
+
+

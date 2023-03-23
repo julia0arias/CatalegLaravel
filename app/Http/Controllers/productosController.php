@@ -51,6 +51,12 @@ class productosController extends Controller
         $producto->categoria_id = $request->categoria_id;
         $producto->descripcion = $request->descripcion;
 
+        if($request->precio != null){
+            $producto->precio = $request->precio;
+        } else {
+            return back()->withErrors(['nombre' => 'Añada un precio al producto.']);
+        }
+
         if ($request->hasFile('imagen')) {
             $name = $request->file('imagen')->getClientOriginalName();
             $request->file('imagen')->storeAs('public', $name, 'local');
@@ -66,6 +72,7 @@ class productosController extends Controller
     {
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
+        $producto->precio = $request->precio;
 
         if ($request->hasFile('imagen')) {
             $name = $request->file('imagen')->getClientOriginalName();

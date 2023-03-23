@@ -13,9 +13,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
 <link rel="stylesheet" href="{{URL::asset('css/app.css')}}">
 </head>
 <body>
-    <x-navbar :logged="session('logged')" :user="session('user')" />
 
-<div class="contenedorMain">
+    <x-navbar :logged="session('logged')" :user="session('user')" :cart="session('cart', [])" :totalProductos="session('totalProductos')" />
+
+    <div class="contenedorMain">
       <div class="container col-4 contenedorForm pt-4">
       <form class="formulario">
 
