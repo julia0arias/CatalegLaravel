@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-   /* public function showModal()
-    {
-        $cart = session('cart', []);
-        return view('cart.modal')->with('cart', $cart);
-    }*/
-
     public function addToCart(Request $request)
     {
         $totalProductos = 0;
@@ -30,6 +24,7 @@ class CartController extends Controller
         } else {
             // Si el producto no está en el carrito, agregarlo con una cantidad de 1
             $cart[$productoId] = [
+                'id' => $productoId,
                 'nombre' => $producto->nombre,
                 'descripcion' => $producto->descripcion,
                 'imagen' => $producto->imagen,

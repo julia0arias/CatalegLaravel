@@ -131,6 +131,9 @@
                             <use xlink:href="#facebook"></use>
                         </svg></a></li>
             </ul>
+
+            <pre>{{ dd(session('cart')) }}</pre>
+
         </footer>
     </div>
     </div>
