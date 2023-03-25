@@ -45,8 +45,8 @@
         </ul>
       <div class="d-flex usuario">
         @if (session('logged') != null && session('isAdmin') == false)
-        <a class="carrito" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="fa-solid fa-cart-shopping"></i>
-            <span class='badge badge-warning' id='lblCartCount'> {{ session('totalProductos') }} </span>
+        <a href="{{ url('/carrito') }}" class="carrito"><i class="fa-solid fa-cart-shopping"></i>
+            <span class='badge badge-warning' id='lblCartCount'> {{ session('totalProductos') == null ? 0 : session('totalProductos')}} </span>
         </a>
         @endif
 
@@ -60,4 +60,3 @@
 
 @include('components.loginModal')
 @include('components.register')
-@include('components.modalCarrito')

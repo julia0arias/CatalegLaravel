@@ -69,6 +69,9 @@ Route::get('/modificarUsuario/{id}', [UsuariosController::class, 'subirDatos']);
 
 //Cesta compra
 
-Route::get('/modal', [CartController::class, 'showModal'])->name('cart.modal');
+Route::get('/carrito', [CartController::class, 'mostrarCarrito']);
 Route::post('/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/increment/{id}', [CartController::class, 'incrementAmount'])->name('cart.increment');
+Route::get('/decrement/{id}', [CartController::class, 'decrementAmount'])->name('cart.decrement');
+Route::get('/delete/{id}', [CartController::class, 'deleteProduct'])->name('cart.delete');

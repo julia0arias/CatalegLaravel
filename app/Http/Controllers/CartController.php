@@ -8,64 +8,105 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request)
-    {
-        $totalProductos = 0;
-        $productoId = $request->input('id');
-        $producto = Producto::find($productoId);
 
-        // Obtener el carrito de compras actual desde la sesión
+    private function actualizarCarrito($productoId, $cantidad) {
+        $producto = Producto::find($productoId);
         $cart = session('cart', []);
 
-        // Verificar si el producto ya está en el carrito
-        if (array_key_exists($productoId, $cart)) {
-            // Si el producto ya está en el carrito, incrementar la cantidad
-            $cart[$productoId]['cantidad'] += 1;
+        if ($cantidad <= 0) {
+            unset($cart[$productoId]);
         } else {
-            // Si el producto no está en el carrito, agregarlo con una cantidad de 1
-            $cart[$productoId] = [
+            $productoActualizado = [
                 'id' => $productoId,
                 'nombre' => $producto->nombre,
                 'descripcion' => $producto->descripcion,
                 'imagen' => $producto->imagen,
                 'precio' => $producto->precio,
-                'cantidad' => 1
+                'cantidad' => $cantidad
             ];
+            $cart[$productoId] = $productoActualizado;
         }
 
-        // Almacenar el carrito actualizado en la sesión
-        session(['cart' => $cart]);
+        session(['cart' => collect($cart)]);
+        $this->cantidadProductos($cart);
+    }
 
-        // Obtener la cantidad total de productos en el carrito
+    public function addToCart(Request $request)
+    {
+        $productoId = $request->input('id');
+        $cart = collect(session('cart', []));
+
+        if ($cart->has($productoId)) {
+            $this->incrementAmount($productoId);
+        } else {
+            $this->actualizarCarrito($productoId, 1);
+        }
+
+        return redirect()->intended('productos');
+    }
+
+    public function incrementAmount($productoId)
+    {
+        $cart = session('cart', []);
+        $cantidad = $cart[$productoId]['cantidad'] + 1;
+        $this->actualizarCarrito($productoId, $cantidad);
+        return redirect()->back();
+    }
+
+    public function decrementAmount($productoId)
+    {
+        $cart = session('cart', []);
+        $cantidad = $cart[$productoId]['cantidad'] - 1;
+        $this->actualizarCarrito($productoId, $cantidad);
+        return redirect()->back();
+    }
+
+    public function deleteProduct($productoId)
+    {
+        $this->actualizarCarrito($productoId, 0);
+        return redirect()->back();
+    }
+
+    public function cantidadProductos($cart)
+    {
+        $totalProductos = 0;
+
         foreach ($cart as $producto) {
             $totalProductos += $producto['cantidad'];
         }
 
-        // Almacenar el total de productos en sesión
         session(['totalProductos' => $totalProductos]);
-
-        // Redirigir al usuario a la página del producto
-        return redirect()->intended('productos');
     }
 
+    public function calcularPrecioTotal() {
+        $cart = session('cart', []);
+        $total = 0;
+
+        foreach ($cart as $producto) {
+            $total += $producto['precio'] * $producto['cantidad'];
+        }
+
+        session(['totalCompra' => $total]);
+    }
 
     public function checkout()
     {
-         session(['cart' => []]);
-        //$cart = session('cart', []);
-
-        session(['totalProductos' => 0]);
-        // Calcular el total de la compra
-        /*$total = 0;
-        foreach ($cart as $producto) {
-            $total += $producto['precio'] * $producto['cantidad'];
-        }*/
-
-        // Mostrar la vista de confirmación de compra
-      /*  return view('checkout')->with([
-            'cart' => $cart,
-            'total' => $total
-        ]);*/
-        return redirect()->intended('productos');
+        $totalProductos = session('totalProductos', 0);
+        if ($totalProductos > 0) {
+            session(['cart' => []]);
+            session(['totalProductos' => 0]);
+            return redirect()->back()->withErrors(['mensaje' => '¡Gracias por tu compra!']);
+        } else {
+            return redirect()->back()->withErrors(['mensaje' => 'No hay productos en el carrito para comprar.']);
+        }
     }
+
+    public function mostrarCarrito()
+    {
+        $carrito = collect(session('cart', []));
+        $totalCompra = session('totalCompra', $this->calcularPrecioTotal());
+        return view('/carrito', ['carrito' => $carrito, 'totalCompra' => $totalCompra]);
+    }
+
+
 }
