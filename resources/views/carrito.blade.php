@@ -98,10 +98,9 @@
             <a href="{{ route('cart.checkout') }}"><button type="button" class="btn btn-success" onclick="">Comprar</button></a>
         </div>
     </div>
+    <x-footer />
     </div>
     </form>
-
-    <x-footer />
 
     </div>
 

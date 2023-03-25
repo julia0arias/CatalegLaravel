@@ -58,7 +58,12 @@ Route::get('/modificar/{id}', [productosController::class, 'subirDatos']);
 
 Route::post('/anadirProducto', [productosController::class, 'accion']);
 
-//Logins
+
+// Crud usuarios
+
+Route::post('/accionUsuarios', [UsuariosController::class, 'accion']);
+
+// Logins
 
 Route::get('/usuarios', [UsuariosController::class, 'show']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -67,7 +72,7 @@ Route::get('/eliminarUsuario/{id}', [UsuariosController::class, 'delete']);
 Route::get('/modificarUsuario/{id}', [UsuariosController::class, 'subirDatos']);
 
 
-//Cesta compra
+// Cesta compra
 
 Route::get('/carrito', [CartController::class, 'mostrarCarrito']);
 Route::post('/add', [CartController::class, 'addToCart'])->name('cart.add');

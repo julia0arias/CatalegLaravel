@@ -17,7 +17,8 @@
 
     <div class="contenedorMain">
         <div class="container d-flex justify-content-center gap-4 align-items-end">
-            <form action="/accion" method="post">
+            <form action="/accionUsuarios" method="post">
+                @csrf
                 <div class="d-flex justify-content-center align-items-end gap-3 text-center">
                     <div class="form-group col-4">
                         <input type="hidden" name="id" {{ isset($p) ? 'value=' . $p->id . '' : '' }}>
@@ -31,10 +32,16 @@
                             {{ isset($p) ? 'value=' . $p->email . '' : '' }}>
                     </div>
 
+                    <div class="form-group col-4">
+                        <label class="col-form-label col-form-label-sm mt-4" for="inputSmall">Password:</label>
+                        <input class="form-control form-control-sm" name="password" type="password" id="password"
+                            {{ isset($p) && isset($p->password) ? 'value=' . $p->password . ' readonly' : '' }}>
+                    </div>
+
                     <div class="form-group col-2">
                         <label class="col-form-label col-form-label-sm mt-4" for="inputSmall">Administrador:</label>
                         <div class="form-check" style="width: 10%">
-                            <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin" {{ isset($p) && $p->is_admin ? 'checked' : '' }}>
+                            <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin" {{ isset($p) && $p->is_admin == 'S' ? 'checked' : '' }}>
                             <span>Sí</span>
                         </div>
                     </div>
@@ -42,6 +49,7 @@
                 </div>
             </form>
         </div>
+
         <div class="d-flex justify-content-center align-items-end gap-4">
             @if ($errors->any())
                 <div class="alert alert-danger alertas">
@@ -65,7 +73,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- Lista categorias --}}
+                    {{-- Lista usuarios --}}
 
                     @foreach ($usuarios as $us)
                         <tr>

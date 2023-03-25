@@ -17,9 +17,12 @@
     <x-navbar :logged="session('logged')" :user="session('user')" :cart="session('cart', [])" :totalProductos="session('totalProductos')" />
 
     <div class="contenedorMain">
+
         <div class="container">
+
+            @if (session('logged') != null && session('isAdmin') != null)
             <form action="/anadirProducto" method="post" enctype="multipart/form-data">
-                <div class="d-flex justify-content-center align-items-end gap-4">
+                <div class="d-flex justify-content-center align-items-end flex-wrap gap-4">
                     <div class="form-group">
                         @csrf
                         <input type="hidden" name="id" {{ isset($p) ? 'value=' . $p->id . '' : '' }}>
@@ -54,22 +57,27 @@
                     <button type="submit" class="boton">Guardar</button>
                 </div>
             </form>
-            <div class="d-flex justify-content-center align-items-end gap-4">
-                @if ($errors->any())
-                    <div class="alert alert-danger alertas">
-                        <ul style="margin:0.2px;">
-                            @foreach ($errors->all() as $error)
-                                <li style="font-size: 0.8em;">{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-            </div>
+            @else
+            <div class="p-3"></div>
+            @endif
+        </div>
+
+        <div class="d-flex justify-content-center align-items-end gap-4">
+            @if ($errors->any())
+                <div class="alert alert-primary alertas">
+                    <ul style="margin:0.2px;">
+                        @foreach ($errors->all() as $error)
+                            <li style="font-size: 0.8em;">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
 
         <div class="container contenedorProductos gap-2">
 
             @foreach ($productos as $prod)
+
                 <div class="card shadow-sm" style="width: 300px;">
 
                     <img src="{{ asset('storage/' . $prod->imagen) }}" class="card-img-top" alt="Imagen del producto">
@@ -93,11 +101,12 @@
                                 <form method="POST" action="{{ route('cart.add') }}">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $prod->id }}">
-                                    <button class="anadirCarrito-btn" title="Añadir al carrito">
+                                    <button class="anadirCarrito" title="Añadir al carrito">
                                         <i class="fa-solid fa-basket-shopping"></i>
                                         <span class='badgePlus' id='lblCartCount'> + </span>
                                     </button>
                                 </form>
+                                <button href="#valoracionModal" class="btn btn-primary mt-4 boton" data-bs-toggle="modal" data-bd-target="#valoracionModal">Valorar producto</button>
                             @endif
                         </div>
                     </div>
@@ -106,7 +115,7 @@
         </div>
 
         <x-footer />
-
+        <x-valoracionModal/>
     </div>
 </body>
 

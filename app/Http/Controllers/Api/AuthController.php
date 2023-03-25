@@ -37,7 +37,7 @@ final class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->intended();
          }
-         return redirect()->intended()->withSuccess('Oppes! You have entered invalid credentials');
+         return redirect()->intended()->withSuccess('Error al registrarse');
     }
 
     final public function logout()
@@ -59,7 +59,7 @@ final class AuthController extends Controller
         ]);
 
         if($validateUser->fails()){
-            return redirect()->intended('register')->withSuccess('Oppes! You have entered invalid credentials');
+            return redirect()->intended('register')->withSuccess('Error al registrarse');
         } else {
             User::create([
                 'name' => $request->name,

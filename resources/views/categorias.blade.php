@@ -22,6 +22,7 @@
     <x-navbar :logged="session('logged')" :user="session('user')" :cart="session('cart', [])" :totalProductos="session('totalProductos')" />
 
     <div class="contenedorMain">
+        @if (session('logged') != null && session('isAdmin') != null)
         <div class="container d-flex justify-content-center gap-4 align-items-end">
             <form action="/accion" method="post">
                 <div class="d-flex justify-content-center align-items-end gap-3">
@@ -52,6 +53,9 @@
                 </div>
             @endif
         </div>
+        @else
+        <div class="p-3"></div>
+        @endif
         <div class="container">
             <table class="table table-hover table-light m-5">
                 <thead>

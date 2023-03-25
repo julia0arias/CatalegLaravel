@@ -42,7 +42,7 @@ class CartController extends Controller
             $this->actualizarCarrito($productoId, 1);
         }
 
-        return redirect()->intended('productos');
+        return redirect()->intended('productos')->withErrors(['nombre' => 'Producto añadido al carrito.']);
     }
 
     public function incrementAmount($productoId)

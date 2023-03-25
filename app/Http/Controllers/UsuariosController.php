@@ -34,25 +34,37 @@ public function accion(Request $request)
     } else {
         $this->guardarUsuario($request);
     }
+
     return redirect()->to("/usuarios");
 
 }
 
 public function guardarUsuario($request)
 {
-    $usuario = new User();
-    $usuario->name = $request->name;
-    $usuario->email = $request->email;
-    $usuario->password = $request->password;
-    $usuario->save();
+    $usuario = User::where('email', $request->email)->first();
+
+    if($usuario == null){
+        $usuario = new User();
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->password = bcrypt($request->password);
+        $usuario->is_admin = $request->is_admin ? 'S' : 'N';
+        $usuario->save();
+    }else{
+        return back()->withErrors(['error' => 'Correo ya registrado.']);
+    }
+
 }
 
 public function modificarUsuario($request, $usuario)
 {
+
     $usuario->name = $request->name;
     $usuario->email = $request->email;
     $usuario->password = $request->password;
+    $usuario->is_admin = $request->is_admin ? 'S' : 'N';
     $usuario->save();
+
 }
 public function buscarUsuario($id)
 {
