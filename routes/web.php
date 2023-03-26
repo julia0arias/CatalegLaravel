@@ -83,6 +83,7 @@ Route::get('/delete/{id}', [CartController::class, 'deleteProduct'])->name('cart
 Route::get('/factura', [CompraRealizadaController::class, 'imprimirFactura']);
 
 Route::get('/compraRealizada', [CompraRealizadaController::class, 'show']);
+Route::post('/borrarSesion', [CartController::class, 'borrarSesion'])->name('borrarSesion');
 
 // Valoraciones
 

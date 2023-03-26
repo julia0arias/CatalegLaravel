@@ -30,8 +30,8 @@ class productosController extends Controller
         $producto->valoraciones()->delete();
 
         // Borrar imagen asociada
-        if (Storage::exists('app/public/' . $producto->imagen) && $producto->imagen != 'no_image.jpg') {
-            Storage::delete('app/public/' . $producto->imagen);
+        if (Storage::exists('public/' . $producto->imagen) && $producto->imagen != 'no_image.jpg') {
+            Storage::delete('public/' . $producto->imagen);
         }
 
         $producto->delete();
@@ -72,7 +72,7 @@ class productosController extends Controller
 
         if ($request->hasFile('imagen')) {
             $name = $request->file('imagen')->getClientOriginalName();
-            $request->file('imagen')->storeAs('app/public', $name, 'local');
+            $request->file('imagen')->storeAs('public', $name, 'local');
             $producto->imagen = $name;
         } else {
             $producto->imagen = 'no_image.jpg';
@@ -89,7 +89,7 @@ class productosController extends Controller
 
         if ($request->hasFile('imagen')) {
             $name = $request->file('imagen')->getClientOriginalName();
-            $request->file('imagen')->storeAs('app/public', $name, 'local');
+            $request->file('imagen')->storeAs('public', $name, 'local');
             $producto->imagen = $name;
         }
 

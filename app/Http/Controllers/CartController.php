@@ -101,7 +101,7 @@ class CartController extends Controller
                 'totalCompra' => $this->calcularPrecioTotal($carrito),
             ]]);
 
-            return redirect('compraRealizada')->with(['datosFactura' => session('datosFactura')]);
+            return redirect('compraRealizada');
 
         } else {
             return redirect()->back()->withErrors(['mensaje' => 'No hay productos en el carrito para comprar.']);
@@ -113,7 +113,10 @@ class CartController extends Controller
     {
         $carrito = collect(session('cart', []));
         $totalCompra = session('totalCompra', $this->calcularPrecioTotal());
-        session(['datosFactura' => compact('carrito', 'totalCompra')]);
+
+        if (session('datosFactura') === null) {
+            session(['datosFactura' => compact('carrito', 'totalCompra')]);
+        }
 
         $this->cantidadProductos($carrito);
 
