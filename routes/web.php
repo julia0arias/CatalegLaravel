@@ -6,6 +6,7 @@ use App\Http\Controllers\categoriasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ValoracionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,19 +23,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/productos', function () {
-    return view('productos');
-});
-
 Route::get('/contacto', function () {
     return view('contacto');
 });
-
-Route::get('/logout', [AuthController::class, 'logout']);
-
-Route::get('/productos', [productosController::class, 'show']);
-
-Route::get('/categorias', [categoriasController::class, 'show']);
 
 //Para gente logueada
 //Route::middleware(['auth:sanctum'])->group(function () {
@@ -43,21 +34,25 @@ Route::get('/categorias', [categoriasController::class, 'show']);
 
 //});
 
-//Categorias
+// Categorias
+Route::get('/categorias', [categoriasController::class, 'show']);
 Route::get('/eliminarCategoria/{id}', [categoriasController::class, 'delete']);
-
 Route::get('/modificarCategoria/{id}', [categoriasController::class, 'subirDatos']);
-
 Route::post('/accion', [categoriasController::class, 'accion']);
 
-//Productos
+// Productos
 
+Route::get('/productos', function () {
+    return view('productos');
+});
+Route::get('/productos', [productosController::class, 'show']);
 Route::get('/eliminar/{id}', [productosController::class, 'delete']);
-
 Route::get('/modificar/{id}', [productosController::class, 'subirDatos']);
-
 Route::post('/anadirProducto', [productosController::class, 'accion']);
 
+// Logout
+
+Route::get('/logout', [AuthController::class, 'logout']);
 
 // Crud usuarios
 
@@ -80,3 +75,7 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkou
 Route::get('/increment/{id}', [CartController::class, 'incrementAmount'])->name('cart.increment');
 Route::get('/decrement/{id}', [CartController::class, 'decrementAmount'])->name('cart.decrement');
 Route::get('/delete/{id}', [CartController::class, 'deleteProduct'])->name('cart.delete');
+
+// Valoraciones
+
+Route::post('/valoracion', [ValoracionesController::class, 'anadirValoracion'])->name('valoracion.add');

@@ -106,16 +106,16 @@
                                         <span class='badgePlus' id='lblCartCount'> + </span>
                                     </button>
                                 </form>
-                                <button href="#valoracionModal" class="btn btn-primary mt-4 boton" data-bs-toggle="modal" data-bd-target="#valoracionModal">Valorar producto</button>
-                            @endif
+                                <button href="#valoracionModal-{{ $prod->id }}" class="btn btn-primary mt-4 boton" data-bs-toggle="modal" data-bd-target="#valoracionModal-{{ $prod->id }}">Valorar producto</button>
+                                <x-valoracionModal :producto="$prod" :user="session('user')" :valoraciones="$valoraciones" :usuarios="$usuarios" />
+                                @endif
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <x-footer />
-        <x-valoracionModal/>
+        <x-footer/>
     </div>
 </body>
 

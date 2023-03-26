@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Models\Producto;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Validator;
+use App\Models\Valoracion;
 
 class productosController extends Controller
 {
@@ -15,7 +17,10 @@ class productosController extends Controller
     {
         $producto = Producto::all();
         $categorias = Categoria::all();
-        return view("productos", ['productos' => $producto, 'categorias' => $categorias]);
+        $valoraciones = Valoracion::all();
+        $usuarios = User::all();
+
+        return view("productos", ['productos' => $producto, 'categorias' => $categorias, 'valoraciones' => $valoraciones, 'usuarios' => $usuarios]);
     }
 
     public function delete(Request $r)
