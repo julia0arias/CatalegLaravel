@@ -20,6 +20,8 @@ use App\Http\Controllers\ValoracionesController;
 |
 */
 
+// Mostrar vistas
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,18 +30,12 @@ Route::get('/contacto', function () {
     return view('contacto');
 });
 
-//Para gente logueada
-//Route::middleware(['auth:sanctum'])->group(function () {
-
-//Route::get('/categorias', [CategoriasController::class, 'show']);
-
-//});
 
 // Categorias
 Route::get('/categorias', [categoriasController::class, 'show']);
-Route::get('/eliminarCategoria/{id}', [categoriasController::class, 'delete']);
-Route::get('/modificarCategoria/{id}', [categoriasController::class, 'subirDatos']);
-Route::post('/accion', [categoriasController::class, 'accion']);
+Route::get('/eliminarCategoria/{id}', [categoriasController::class, 'delete'])->middleware(['auth', 'is_admin']);
+Route::get('/modificarCategoria/{id}', [categoriasController::class, 'subirDatos'])->middleware(['auth', 'is_admin']);
+Route::post('/accion', [categoriasController::class, 'accion'])->middleware(['auth', 'is_admin']);
 
 // Productos
 
@@ -47,9 +43,9 @@ Route::get('/productos', function () {
     return view('productos');
 });
 Route::get('/productos', [productosController::class, 'show']);
-Route::get('/eliminar/{id}', [productosController::class, 'delete']);
-Route::get('/modificar/{id}', [productosController::class, 'subirDatos']);
-Route::post('/anadirProducto', [productosController::class, 'accion']);
+Route::get('/eliminar/{id}', [productosController::class, 'delete'])->middleware(['auth', 'is_admin']);
+Route::get('/modificar/{id}', [productosController::class, 'subirDatos'])->middleware(['auth', 'is_admin']);
+Route::post('/anadirProducto', [productosController::class, 'accion'])->middleware(['auth', 'is_admin']);
 
 // Logout
 
@@ -57,34 +53,30 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 // Crud usuarios
 
-Route::post('/accionUsuarios', [UsuariosController::class, 'accion']);
+Route::post('/accionUsuarios', [UsuariosController::class, 'accion'])->middleware(['auth', 'is_admin']);
+Route::get('/usuarios', [UsuariosController::class, 'show'])->middleware(['auth', 'is_admin']);
 
 // Logins
 
-Route::get('/usuarios', [UsuariosController::class, 'show']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/eliminarUsuario/{id}', [UsuariosController::class, 'delete']);
-Route::get('/modificarUsuario/{id}', [UsuariosController::class, 'subirDatos']);
-
+Route::get('/eliminarUsuario/{id}', [UsuariosController::class, 'delete'])->middleware(['auth', 'is_admin']);
+Route::get('/modificarUsuario/{id}', [UsuariosController::class, 'subirDatos'])->middleware(['auth', 'is_admin']);
 
 // Cesta compra
 
-Route::get('/carrito', [CartController::class, 'mostrarCarrito']);
-Route::post('/add', [CartController::class, 'addToCart'])->name('cart.add');
-Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-Route::get('/increment/{id}', [CartController::class, 'incrementAmount'])->name('cart.increment');
-Route::get('/decrement/{id}', [CartController::class, 'decrementAmount'])->name('cart.decrement');
-Route::get('/delete/{id}', [CartController::class, 'deleteProduct'])->name('cart.delete');
+Route::get('/carrito', [CartController::class, 'mostrarCarrito'])->middleware(['auth', 'is_logged']);
+Route::post('/add', [CartController::class, 'addToCart'])->name('cart.add')->middleware(['auth', 'is_logged']);
+Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout')->middleware(['auth', 'is_logged']);
+Route::get('/increment/{id}', [CartController::class, 'incrementAmount'])->name('cart.increment')->middleware(['auth', 'is_logged']);
+Route::get('/decrement/{id}', [CartController::class, 'decrementAmount'])->name('cart.decrement')->middleware(['auth', 'is_logged']);
+Route::get('/delete/{id}', [CartController::class, 'deleteProduct'])->name('cart.delete')->middleware(['auth', 'is_logged']);
 
+// Ruta generar pdf con libreria tcpdf y compra realizada
 
-// Ruta generar pdf con libreria tcpdf
-
-Route::get('/factura', [CompraRealizadaController::class, 'imprimirFactura']);
-
-Route::get('/compraRealizada', [CompraRealizadaController::class, 'show']);
-Route::post('/borrarSesion', [CartController::class, 'borrarSesion'])->name('borrarSesion');
+Route::get('/factura', [CompraRealizadaController::class, 'imprimirFactura'])->middleware(['auth', 'is_logged']);
+Route::get('/compraRealizada', [CompraRealizadaController::class, 'show'])->middleware(['auth', 'is_logged']);
 
 // Valoraciones
 
-Route::post('/valoracion', [ValoracionesController::class, 'anadirValoracion'])->name('valoracion.add');
+Route::post('/valoracion', [ValoracionesController::class, 'anadirValoracion'])->name('valoracion.add')->middleware(['auth', 'is_logged']);
