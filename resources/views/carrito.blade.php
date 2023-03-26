@@ -68,7 +68,8 @@
                                         </div>
                                     </td>
                                     <td class="total-product">{{ $producto['precio'] * $producto['cantidad'] }}</td>
-                                    <td><a href="{{ route('cart.delete', ['id' => $producto['id']]) }}"><i class="fa-solid fa-trash"></i></a></td>
+                                    <td><a href="{{ route('cart.delete', ['id' => $producto['id']]) }}"><i
+                                                class="fa-solid fa-trash"></i></a></td>
                                 </tr>
                             @endforeach
                         </table>
@@ -82,6 +83,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center align-items-end gap-4">
+
                     @if ($errors->any())
                         <div class="alert alert-success alertas">
                             <ul style="margin:0.2px;">
@@ -91,14 +93,16 @@
                             </ul>
                         </div>
                     @endif
+
                 </div>
-        <div class="border-0 d-flex justify-content-between fieldLogin">
-            <a href="{{ url('/productos') }}"><button type="button" class="btn btn-secondary">Seguir
-                    comprando</button></a>
-            <a href="{{ route('cart.checkout') }}"><button type="button" class="btn btn-success" onclick="">Comprar</button></a>
+                <div class="border-0 d-flex justify-content-between fieldLogin">
+                    <a href="{{ url('/productos') }}"><button type="button" class="btn btn-secondary">Seguir
+                            comprando</button></a>
+                    <a href="{{ route('cart.checkout') }}"><button type="button" class="btn btn-success"
+                            onclick="">Comprar</button></a>
+                </div>
         </div>
-    </div>
-    <x-footer />
+        <x-footer />
     </div>
     </form>
 

@@ -51,8 +51,7 @@
                     </div>
                     <div class="form-group col-2">
                         <label class="col-form-label col-form-label-sm mt-4" for="imagen">Imagen:</label>
-                        <input class="form-control form-control-sm" name="imagen" type="file" id="imagen"
-                            required>
+                        <input class="form-control form-control-sm" name="imagen" type="file" id="imagen">
                     </div>
                     <button type="submit" class="boton">Guardar</button>
                 </div>

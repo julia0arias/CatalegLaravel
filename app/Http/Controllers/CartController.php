@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use TCPDF;
 
 class CartController extends Controller
 {
@@ -92,21 +93,30 @@ class CartController extends Controller
     public function checkout()
     {
         $totalProductos = session('totalProductos', 0);
+        $carrito = session('cart', []);
+
         if ($totalProductos > 0) {
-            session(['cart' => []]);
-            session(['totalProductos' => 0]);
-            return redirect()->back()->withErrors(['mensaje' => '¡Gracias por tu compra!']);
+            session(['datosFactura' => [
+                'carrito' => $carrito,
+                'totalCompra' => $this->calcularPrecioTotal($carrito),
+            ]]);
+
+            return redirect('compraRealizada')->with(['datosFactura' => session('datosFactura')]);
+
         } else {
             return redirect()->back()->withErrors(['mensaje' => 'No hay productos en el carrito para comprar.']);
         }
     }
 
+
     public function mostrarCarrito()
     {
         $carrito = collect(session('cart', []));
         $totalCompra = session('totalCompra', $this->calcularPrecioTotal());
+        session(['datosFactura' => compact('carrito', 'totalCompra')]);
+
+        $this->cantidadProductos($carrito);
+
         return view('/carrito', ['carrito' => $carrito, 'totalCompra' => $totalCompra]);
     }
-
-
 }

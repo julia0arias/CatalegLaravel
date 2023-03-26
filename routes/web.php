@@ -6,6 +6,7 @@ use App\Http\Controllers\categoriasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CompraRealizadaController;
 use App\Http\Controllers\ValoracionesController;
 
 /*
@@ -75,6 +76,13 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkou
 Route::get('/increment/{id}', [CartController::class, 'incrementAmount'])->name('cart.increment');
 Route::get('/decrement/{id}', [CartController::class, 'decrementAmount'])->name('cart.decrement');
 Route::get('/delete/{id}', [CartController::class, 'deleteProduct'])->name('cart.delete');
+
+
+// Ruta generar pdf con libreria tcpdf
+
+Route::get('/factura', [CompraRealizadaController::class, 'imprimirFactura']);
+
+Route::get('/compraRealizada', [CompraRealizadaController::class, 'show']);
 
 // Valoraciones
 

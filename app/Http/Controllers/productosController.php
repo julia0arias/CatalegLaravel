@@ -25,7 +25,15 @@ class productosController extends Controller
 
     public function delete(Request $r)
     {
-        $producto = Producto::find($r->id);
+        // Borrar las valoraciones asociadas
+        $producto = Producto::with('valoraciones')->find($r->id);
+        $producto->valoraciones()->delete();
+
+        // Borrar imagen asociada
+        if (Storage::exists('app/public/' . $producto->imagen) && $producto->imagen != 'no_image.jpg') {
+            Storage::delete('app/public/' . $producto->imagen);
+        }
+
         $producto->delete();
         return redirect('/productos');
     }
@@ -47,7 +55,7 @@ class productosController extends Controller
     {
 
         $producto = new Producto();
-        if($request->nombre != null){
+        if ($request->nombre != null) {
             $producto->nombre = $request->nombre;
         } else {
             return back()->withErrors(['nombre' => 'Añada un nombre al producto.']);
@@ -56,7 +64,7 @@ class productosController extends Controller
         $producto->categoria_id = $request->categoria_id;
         $producto->descripcion = $request->descripcion;
 
-        if($request->precio != null){
+        if ($request->precio != null) {
             $producto->precio = $request->precio;
         } else {
             return back()->withErrors(['nombre' => 'Añada un precio al producto.']);
@@ -64,10 +72,10 @@ class productosController extends Controller
 
         if ($request->hasFile('imagen')) {
             $name = $request->file('imagen')->getClientOriginalName();
-            $request->file('imagen')->storeAs('public', $name, 'local');
+            $request->file('imagen')->storeAs('app/public', $name, 'local');
             $producto->imagen = $name;
         } else {
-            return back()->withErrors(['imagen' => 'Añada una imagen al producto.']);
+            $producto->imagen = 'no_image.jpg';
         }
 
         $producto->save();
@@ -81,7 +89,7 @@ class productosController extends Controller
 
         if ($request->hasFile('imagen')) {
             $name = $request->file('imagen')->getClientOriginalName();
-            $request->file('imagen')->storeAs('public', $name, 'local');
+            $request->file('imagen')->storeAs('app/public', $name, 'local');
             $producto->imagen = $name;
         }
 
