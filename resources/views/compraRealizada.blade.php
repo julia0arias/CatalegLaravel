@@ -17,10 +17,13 @@
     <x-navbar :logged="session('logged')" :user="session('user')" :cart="session('cart', [])" :totalProductos="session('totalProductos')" />
 
     <div class="contenedorMain">
+
         <div class="container col-8 contenedorForm pt-4 d-flex justify-content-center">
 
             <div class="fieldLogin cardLogin p-4 m-4" style="width: 100%;">
+                <h1 class="modal-title form_headingLogin text-center">¡Gracias por tu compra!</h1>
                 <div class=" border-0 card_headerLogin d-flex justify-content-between">
+
                     <h1 class="form_headingLogin modal-title" id="loginModalLabel">Factura</h1>
                 </div>
                 <table class="table table-image table-hover">

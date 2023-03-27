@@ -10,11 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
-    <style>
-        .btn-info {
-            height: 40px;
-        }
-    </style>
+
 </head>
 
 <body>
@@ -99,7 +95,7 @@
                     <a href="{{ url('/productos') }}"><button type="button" class="btn btn-secondary">Seguir
                             comprando</button></a>
                     <a href="{{ route('cart.checkout') }}"><button type="button" class="btn btn-success"
-                            onclick="">Comprar</button></a>
+                            onclick="">Método de pago</button></a>
                 </div>
         </div>
         <x-footer />

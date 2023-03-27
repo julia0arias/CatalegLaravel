@@ -90,6 +90,8 @@ class productosController extends Controller
         if ($request->hasFile('imagen')) {
             $name = $request->file('imagen')->getClientOriginalName();
             $request->file('imagen')->storeAs('public', $name, 'local');
+            /*   $path = $request->file('imagen')->store('public');
+            $path = str_replace("public/", "/storage/", $path);*/
             $producto->imagen = $name;
         }
 
