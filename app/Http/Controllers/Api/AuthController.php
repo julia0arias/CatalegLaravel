@@ -50,24 +50,22 @@ final class AuthController extends Controller
     }
 
     final public function register(Request $request){
-
-        $validateUser = Validator::make($request->all(),
-        [
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required'
+        ], [
+            'email.email' => 'El correo electrónico no es válido.'
         ]);
 
-        if($validateUser->fails()){
-            return redirect()->intended('register')->withSuccess('Error al registrarse');
-        } else {
-            User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'is_admin' => 'N'
-            ]);
-              return redirect()->intended();
-        }
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'is_admin' => 'N'
+        ]);
+
+        return redirect()->intended();
     }
+
 }

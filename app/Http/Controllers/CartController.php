@@ -79,7 +79,7 @@ class CartController extends Controller
         session(['totalProductos' => $totalProductos]);
     }
 
-    public function calcularPrecioTotal() {
+  /*  public function calcularPrecioTotal() {
         $cart = session('cart', []);
         $total = 0;
 
@@ -88,6 +88,21 @@ class CartController extends Controller
         }
 
         session(['totalCompra' => $total]);
+    }*/
+
+    public function calcularPrecioTotal($cart) {
+        $subtotal = 0;
+
+        foreach ($cart as $producto) {
+            $subtotal += number_format($producto['precio'] * $producto['cantidad'], 2, '.', '');
+        }
+
+        $iva = number_format($subtotal * 0.21, 2, '.', '');
+        $total = number_format($subtotal + $iva, 2, '.', '');
+
+        session(['subtotalCompra' => $subtotal, 'ivaCompra' => $iva, 'totalCompra' => $total]);
+
+        return $total;
     }
 
     public function checkout()
@@ -96,9 +111,10 @@ class CartController extends Controller
         $carrito = session('cart', []);
 
         if ($totalProductos > 0) {
+            $totalCompra = $this->calcularPrecioTotal($carrito);
             session(['datosFactura' => [
                 'carrito' => $carrito,
-                'totalCompra' => $this->calcularPrecioTotal($carrito),
+                'totalCompra' => $totalCompra,
             ]]);
 
             return redirect('stripe');
@@ -108,11 +124,10 @@ class CartController extends Controller
         }
     }
 
-
     public function mostrarCarrito()
     {
         $carrito = collect(session('cart', []));
-        $totalCompra = session('totalCompra', $this->calcularPrecioTotal());
+        $totalCompra = $this->calcularPrecioTotal($carrito->toArray());
 
         if (session('datosFactura') === null) {
             session(['datosFactura' => compact('carrito', 'totalCompra')]);
@@ -122,4 +137,5 @@ class CartController extends Controller
 
         return view('/carrito', ['carrito' => $carrito, 'totalCompra' => $totalCompra]);
     }
+
 }

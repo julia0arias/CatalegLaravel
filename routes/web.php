@@ -84,6 +84,6 @@ Route::post('/valoracion', [ValoracionesController::class, 'anadirValoracion'])-
 
 // Stripe
 Route::controller(StripePaymentController::class)->group(function(){
-    Route::get('stripe', 'stripe');
-    Route::post('stripe', 'stripePost')->name('stripe.post');
+    Route::get('stripe', 'stripe')->middleware(['auth', 'is_logged']);;
+    Route::post('stripe', 'stripePost')->name('stripe.post')->middleware(['auth', 'is_logged']);;
 });

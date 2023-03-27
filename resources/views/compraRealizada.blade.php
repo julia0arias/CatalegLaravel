@@ -39,17 +39,25 @@
                       @foreach ($carrito as $producto)
                         <tr>
                           <td>{{ $producto['nombre'] }}</td>
-                          <td>{{ $producto['precio'] }}€</td>
+                          <td>{{ $producto['precio'] }} €</td>
                           <td>{{ $producto['cantidad'] }}</td>
-                          <td>{{ $producto['precio'] * $producto['cantidad'] }}€</td>
+                          <td>{{ $producto['precio'] * $producto['cantidad'] }} €</td>
                         </tr>
                       @endforeach
                     </tbody>
                     <tfoot>
-                      <tr>
-                        <td colspan="3">Total:</td>
-                        <td>{{ $totalCompra }}€</td>
-                      </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>Subtotal: {{ $subtotalCompra }} €</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>IVA (21%): {{ $ivaCompra }} €</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><strong>Total: {{ $totalCompra }} €</strong></td>
+                        </tr>
                     </tfoot>
                   </table>
                     <a href="{{ url('factura') }}"><button type="button" class="btn btn-secondary">Imprimir factura</button></a>

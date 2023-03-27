@@ -249,8 +249,13 @@ i:hover {
 
 .alertas {
     padding: 0.2%;
-    width: 50%;
+    width: 40%;
     margin-top: 1%;
+    text-align: center;
+}
+
+.alertas ul {
+    list-style: none;
 }
 
 .menu {

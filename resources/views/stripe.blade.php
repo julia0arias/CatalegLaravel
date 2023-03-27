@@ -77,7 +77,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pagar {{ session('datosFactura.totalCompra') }}</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pagar {{ session('totalCompra') }} €</button>
                             </div>
                         </div>
 

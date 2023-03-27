@@ -40,7 +40,6 @@
 
                             @foreach (session('cart', []) as $producto)
                                 <tr data-product-id="{{ $producto['id'] }}">
-                                <tr>
                                     <td class="w-25">
                                         <img src="{{ asset('storage/' . $producto['imagen']) }}"
                                             class="img-fluid img-thumbnail" alt="Sheep">
@@ -68,15 +67,30 @@
                                                 class="fa-solid fa-trash"></i></a></td>
                                 </tr>
                             @endforeach
+
+                            @if (count(session('cart', [])) > 0)
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td>Subtotal:</td>
+                                    <td class="subtotal">{{ session('subtotalCompra') }} €</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td>IVA:</td>
+                                    <td class="iva">{{ session('ivaCompra') }} €</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td>Total:</td>
+                                    <td class="total">{{ session('totalCompra') }} €</td>
+                                </tr>
+                            @endif
+
                         </table>
-                    @else
-                        <p>Aún no ha añadido productos a la cesta.</p>
+                    </table>
+                @else
+                    <p>Aún no ha añadido productos a la cesta.</p>
                     @endif
-                    <div class="d-flex justify-content-end text-dark">
-                        <div class="d-flex justify-content-end text-dark">
-                            <h5>Total compra: <span class="price" id="totalPrice">{{ $totalCompra }}</span>€</h5>
-                        </div>
-                    </div>
                 </div>
                 <div class="d-flex justify-content-center align-items-end gap-4">
 

@@ -37,12 +37,20 @@
             </tr>
             @endforeach
         </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3">Total:</td>
-                <td>{{ $totalCompra }}€</td>
-            </tr>
-        </tfoot>
+                <tfoot class="mt-4">
+                    <tr>
+                        <td colspan="3"></td>
+                        <td>Subtotal: {{ $subtotalCompra }} €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td>IVA (21%): {{ $ivaCompra }} €</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td><strong>Total: {{ $totalCompra }} €</strong></td>
+                    </tr>
+                </tfoot>
     </table>
 </body>
 

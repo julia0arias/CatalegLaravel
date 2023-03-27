@@ -30,7 +30,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
                 <p class="p-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, laborum iure quo ut numquam dolorem porro, accusantium sit quaerat vel totam nihil? Facere commodi temporibus qui aliquam suscipit similique! Voluptas.
                 Quaerat corrupti at cumque doloribus assumenda aliquid unde odio maiores atque obcaecati eos vitae repudiandae corporis animi minus nemo cupiditate porro soluta pariatur, ut laudantium. Vel ab placeat quos distinctio?
                 Eveniet culpa hic nemo recusandae neque Voluptatum rem delectus animi, earum iure praesentium unde sunt iste iusto consequatur, nobis tempore veniam quae cum minima aperiam, consequuntur molestias nemo? Voluptatibus consequuntur fuga ad?</p>
-                <button class="btn boton">Login</button>
+                <button class="btn boton">¡Entra!</button>
             </div>
         </div>
 
