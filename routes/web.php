@@ -8,6 +8,7 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CompraRealizadaController;
 use App\Http\Controllers\ValoracionesController;
+use App\Http\Controllers\StripePaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,3 +81,9 @@ Route::get('/compraRealizada', [CompraRealizadaController::class, 'show'])->midd
 // Valoraciones
 
 Route::post('/valoracion', [ValoracionesController::class, 'anadirValoracion'])->name('valoracion.add')->middleware(['auth', 'is_logged']);
+
+// Stripe
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe', 'stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
