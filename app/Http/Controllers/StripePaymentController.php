@@ -29,13 +29,13 @@ class StripePaymentController extends Controller
 
         Stripe\Charge::create ([
                 "amount" => 100 * 100,
-                "currency" => "usd",
+                "currency" => "EUR",
                 "source" => $request->stripeToken,
-                "description" => "Test payment from LaravelTus.com."
+                "description" => "Pago test"
         ]);
 
-        Session::flash('success', 'Payment successful!');
+        Session::flash('success', '¡Compra realizada!');
 
-        return back();
+        return redirect('/compraRealizada');
     }
 }

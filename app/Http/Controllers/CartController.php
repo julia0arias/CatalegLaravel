@@ -101,7 +101,7 @@ class CartController extends Controller
                 'totalCompra' => $this->calcularPrecioTotal($carrito),
             ]]);
 
-            return redirect('compraRealizada');
+            return redirect('stripe');
 
         } else {
             return redirect()->back()->withErrors(['mensaje' => 'No hay productos en el carrito para comprar.']);

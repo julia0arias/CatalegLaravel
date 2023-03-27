@@ -4,6 +4,7 @@
     <title>Laravel 9 Stripe Payment Gateway Integration Example - LaravelTuts.com</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <style type="text/css">
     h2{
@@ -13,13 +14,13 @@
 <body>
 <div class="container">
 
-    <h2 class="text-center">Laravel 9 Stripe Payment Gateway Integration Example - LaravelTuts.com</h2>
+    <h2 class="text-center">Detalles del pago</h2>
 
     <div class="row">
         <div class="col-md-7 col-md-offset-3">
             <div class="panel panel-default credit-card-box">
                 <div class="panel-heading display-table" >
-                    <h3 class="panel-title text-center"><strong>Payment Details</strong></h3>
+                    <h3 class="panel-title text-center"><strong>Pagar con tarjeta</strong></h3>
                 </div>
                 <div class="panel-body">
 
@@ -42,14 +43,14 @@
 
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group required'>
-                                <label class='control-label'>Name on Card</label>
+                                <label class='control-label'>Nombre del titular</label>
                                 <input class='form-control' size='4' type='text'>
                             </div>
                         </div>
 
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group card required'>
-                                <label class='control-label'>Card Number</label>
+                                <label class='control-label'>Número de tarjeta</label>
                                 <input autocomplete='off' class='form-control card-number' size='20' type='text'>
                             </div>
                         </div>
@@ -57,13 +58,13 @@
                         <div class='form-row row'>
                             <div class='col-xs-12 col-md-4 form-group cvc required'>
                                 <label class='control-label'>CVC</label>
-                                <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text'>
+                                <input autocomplete='off' class='form-control card-cvc' placeholder='ej. 311' size='4' type='text'>
                             </div>
                             <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                <label class='control-label'>Expiration Month</label> <input class='form-control card-expiry-month' placeholder='MM' size='2' type='text'>
+                                <label class='control-label'>Mes de vencimiento</label> <input class='form-control card-expiry-month' placeholder='MM' size='2' type='text'>
                             </div>
                             <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                <label class='control-label'>Expiration Year</label>
+                                <label class='control-label'>Año de vencimiento</label>
                                 <input class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'>
                             </div>
                         </div>
@@ -76,7 +77,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now ($100)</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pagar {{ session('datosFactura.totalCompra') }}</button>
                             </div>
                         </div>
 
