@@ -71,7 +71,9 @@ class productosController extends Controller
         }
 
         if ($request->hasFile('imagen')) {
-            $name = $request->file('imagen')->getClientOriginalName();
+            //$name = $request->file('imagen')->getClientOriginalName();
+           //  $request->file('imagen')->storeAs('public', $name, 'local');
+           $name = uniqid().$request->file('imagen')->getClientOriginalName();
             $request->file('imagen')->storeAs('public', $name, 'local');
             $producto->imagen = $name;
         } else {
@@ -88,10 +90,11 @@ class productosController extends Controller
         $producto->precio = $request->precio;
 
         if ($request->hasFile('imagen')) {
-            $name = $request->file('imagen')->getClientOriginalName();
+           // $name = $request->file('imagen')->getClientOriginalName();
+           // $request->file('imagen')->storeAs('public', $name, 'local');
+
+            $name = uniqid().$request->file('imagen')->getClientOriginalName();
             $request->file('imagen')->storeAs('public', $name, 'local');
-            /*   $path = $request->file('imagen')->store('public');
-            $path = str_replace("public/", "/storage/", $path);*/
             $producto->imagen = $name;
         }
 
